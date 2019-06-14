@@ -96,7 +96,7 @@ class BeamBeam6D(Element):
         ('d_px', '', 'Quantity subtracted from px after the interation.'),
         ('d_y', 'm', 'Quantity subtracted from y after the interation.'),
         ('d_py', '', 'Quantity subtracted from py after the interation.'),
-        ('d_sigma', 'm', 'Quantity subtracted from sigma after the interation.'),
+        ('d_zeta', 'm', 'Quantity subtracted from sigma after the interation.'),
         ('d_delta', '', 'Quantity subtracted from delta after the interation.')
         ]
 
