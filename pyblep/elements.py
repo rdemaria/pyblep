@@ -34,6 +34,23 @@ class Cavity(Element):
             ]
 
 
+class XYShift(Element):
+    _description = [
+            ('dx', 'm', 'Horizontal shift'),
+            ('dy', 'm', 'Vertical shift')
+            ]
+
+class SRotation(Element):
+    _description = [
+            ('angle', '', 'Rotation angle'),
+            ]
+
+class Line(Element):
+    _description = [
+            ('elems', '', 'Line elements'),
+            ]
+
+
 class BeamBeam4D(Element):
         """Interaction with a transverse-Gaussian strong beam (4D modelling)."""
         _description = [
