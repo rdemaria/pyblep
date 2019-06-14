@@ -16,8 +16,10 @@ class _MetaElement(type):
         print(dct)
         description =dct.get('_description',{})
         nt= namedtuple(clsname,[dd[0] for dd in description])
-        #doc = [dct['__doc__'],'\nFields:\n']
-        doc = ['\nFields:\n']
+        try:
+            doc = [dct['__doc__'],'\nFields:\n']
+        except KeyError:
+            doc = ['\nFields:\n']
         fields=[ f"{field:10} [{unit+']:':5} {desc} " for field, unit, desc in description ]
         doc += fields
         dct['__doc__']="\n".join(doc)
