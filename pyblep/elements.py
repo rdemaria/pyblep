@@ -92,12 +92,12 @@ class BeamBeam6D(Element):
         ('py_co', '', 'py coordinate the closed orbit (weaek beam).'),
         ('zeta_co', 'm', 'zeta coordinate the closed orbit (weaek beam).'),
         ('delta_co', '', 'delta coordinate the closed orbit (weaek beam).'),
-        ('d_x', 'm', 'Quantity subtracted from x after the interation.'),
-        ('d_px', '', 'Quantity subtracted from px after the interation.'),
-        ('d_y', 'm', 'Quantity subtracted from y after the interation.'),
-        ('d_py', '', 'Quantity subtracted from py after the interation.'),
-        ('d_zeta', 'm', 'Quantity subtracted from sigma after the interation.'),
-        ('d_delta', '', 'Quantity subtracted from delta after the interation.')
+        ('d_x', 'm', 'Quantity subtracted from x after the interaction.'),
+        ('d_px', '', 'Quantity subtracted from px after the interaction.'),
+        ('d_y', 'm', 'Quantity subtracted from y after the interaction.'),
+        ('d_py', '', 'Quantity subtracted from py after the interaction.'),
+        ('d_zeta', 'm', 'Quantity subtracted from sigma after the interaction.'),
+        ('d_delta', '', 'Quantity subtracted from delta after the interaction.')
         ]
 
 
