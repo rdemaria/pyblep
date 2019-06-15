@@ -20,7 +20,7 @@ class DriftExact(Drift):
 class Multipole(Element):
     _description = [
             ('knl', 'm^-n',"Normalized integrated strength of normal components"),
-            ('knl', 'm^-n',"Normalized integrated strength of skew components"),
+            ('ksl', 'm^-n',"Normalized integrated strength of skew components"),
             ('hxl', 'rad', "Rotation angle of the reference trajectory in the horizzontal plane"),
             ('hyl', 'rad', "Rotation angle of the reference trajectory in the vertical plane"),
             ('length', 'm',"Length of the orginating thick multipole"),
@@ -34,16 +34,33 @@ class Cavity(Element):
             ]
 
 
+class XYShift(Element):
+    _description = [
+            ('dx', 'm', 'Horizontal shift'),
+            ('dy', 'm', 'Vertical shift')
+            ]
+
+class SRotation(Element):
+    _description = [
+            ('angle', '', 'Rotation angle'),
+            ]
+
+class Line(Element):
+    _description = [
+            ('elems', '', 'Line elements'),
+            ]
+
+
 class BeamBeam4D(Element):
         """Interaction with a transverse-Gaussian strong beam (4D modelling)."""
-        _decription = [
+        _description = [
         ('charge', 'e', 'Charge of the interacting distribution (strong beam)'),
         ('sigma_x', 'm', 'Horizontal size of the strong beam (r.m.s.)'),
         ('sigma_y', 'm', 'Vertical size of the strong beam (r.m.s.)'),
         ('beta_r', '', 'Relativistic beta of the stron beam'),
         ('x_bb', 'm', 'H. position of the strong beam w.r.t. the reference trajectory'),
         ('y_bb', 'm', 'V. position of the strong beam w.r.t. the reference trajectory'),
-        ('d_px', '', 'H. kick subtracted after the interaction.')
+        ('d_px', '', 'H. kick subtracted after the interaction.'),
         ('d_py', '', 'V. kick subtracted after the interaction.')
         ]
 
@@ -52,7 +69,7 @@ class BeamBeam6D(Element):
 
         http://cds.cern.ch/record/2306400
         """
-        _decription = [
+        _description = [
         ('phi', 'rad', 'Crossing angle (>0 weak beam increases x in the direction motion)'),
         ('alpha', 'rad', 'Crossing plane tilt angle (>0 x tends to y)'),
         ('x_bb_co', 'm', 'H. position of the strong beam w.r.t. the closed orbit'),
@@ -63,11 +80,11 @@ class BeamBeam6D(Element):
         ('sigma_12', 'm', 'Sigma_12 element of the sigma matrix of the strong beam'),
         ('sigma_13', 'm^2', 'Sigma_13 element of the sigma matrix of the strong beam'),
         ('sigma_14', 'm', 'Sigma_14 element of the sigma matrix of the strong beam'),
-        ('sigma_22', '', 'Sigma_22 element of the sigma matrix of the strong beam'),-
+        ('sigma_22', '', 'Sigma_22 element of the sigma matrix of the strong beam'),
         ('sigma_23', 'm', 'Sigma_23 element of the sigma matrix of the strong beam'),
-        ('sigma_24', '', 'Sigma_24 element of the sigma matrix of the strong beam'),-
-        ('sigma_33', 'm^2', 'Sigma_33 element of the sigma matrix of the strong beam'),-
-        ('sigma_34', 'm', 'Sigma_34 element of the sigma matrix of the strong beam'),-
+        ('sigma_24', '', 'Sigma_24 element of the sigma matrix of the strong beam'),
+        ('sigma_33', 'm^2', 'Sigma_33 element of the sigma matrix of the strong beam'),
+        ('sigma_34', 'm', 'Sigma_34 element of the sigma matrix of the strong beam'),
         ('sigma_44', '', 'Sigma_44 element of the sigma matrix of the strong beam'),
         ('x_co', 'm', 'x coordinate the closed orbit (weak beam).'),
         ('px_co', '', 'px coordinate the closed orbit (weak beam).'),
@@ -79,7 +96,7 @@ class BeamBeam6D(Element):
         ('d_px', '', 'Quantity subtracted from px after the interation.'),
         ('d_y', 'm', 'Quantity subtracted from y after the interation.'),
         ('d_py', '', 'Quantity subtracted from py after the interation.'),
-        ('d_sigma', 'm', 'Quantity subtracted from sigma after the interation.'),
+        ('d_zeta', 'm', 'Quantity subtracted from sigma after the interation.'),
         ('d_delta', '', 'Quantity subtracted from delta after the interation.')
         ]
 
