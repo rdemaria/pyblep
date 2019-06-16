@@ -954,4 +954,6 @@ if (not_a_mask==1){
   System,"gzip -f last_twiss.%SEEDRAN";
 };
 
+! Gianni: save sequences
+save, sequence=lhcb1,lhcb1, file=lhcwbb.seq;
 stop;
