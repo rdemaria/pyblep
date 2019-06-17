@@ -1,5 +1,5 @@
 import sixtracktools
-from . import elements as pbelms
+from . import elements as pyblep_elements
 
 def from_sixtrack_input(input_folder = './'):
 
@@ -12,7 +12,7 @@ def from_sixtrack_input(input_folder = './'):
     ele_types = [dd[1] for dd in line_data]
     elements = [dd[2] for dd in line_data]
 
-    line = pbelms.Line(elements=elements)
+    line = pyblep_elements.Line(elements=elements)
 
     other_info['sixinput'] = six
     other_info['rest'] = rest
@@ -21,20 +21,20 @@ def from_sixtrack_input(input_folder = './'):
 
     return line, other_info
 
-def from_madx_sequence(sequence):
+def from_madx_sequence(sequence, classes = pyblep_elements):
     
     seq = sequence
 
     elements = seq.elements
     ele_pos = seq.element_positions()
     
-    line = pbelms.Line(elements=[])
+    line = classes.Line(elements=[])
     element_names = []
     old_pp = 0.
     i_drift = 0
     for ee, pp in zip(elements, ele_pos):
         if pp>old_pp:
-            line.elements.append(pbelms.Drift(length=(pp-old_pp)))
+            line.elements.append(classes.Drift(length=(pp-old_pp)))
             element_names.append('drift_%d'%i_drift)
             i_drift +=1 
     
@@ -46,12 +46,12 @@ def from_madx_sequence(sequence):
     
         if mad_etype in ['marker', 'monitor', 'hmonitor', 'vmonitor',
                 'rcollimator', 'placeholder', 'instrument', 'solenoid']:
-            newele = pbelms.Drift(length=0.)
+            newele = classes.Drift(length=0.)
     
         elif mad_etype == 'multipole':
              knl = ee.knl if hasattr(ee, 'knl') else [0]
              ksl = ee.ksl if hasattr(ee, 'ksl') else [0]
-             newele = pbelms.Multipole(
+             newele = classes.Multipole(
                  knl=knl,
                  ksl=ksl,
                  hxl=knl[0],
@@ -59,27 +59,27 @@ def from_madx_sequence(sequence):
                  length=ee.lrad)
     
         elif mad_etype == 'tkicker':
-             hkick = -ee.hkick if hasattr(ee, 'hkick') else []
-             vkick = ee.vkick if hasattr(ee, 'vkick') else []
-             newele = pbelms.Multipole(knl=hkick, ksl=vkick,
+             hkick = [-ee.hkick] if hasattr(ee, 'hkick') else []
+             vkick = [ee.vkick] if hasattr(ee, 'vkick') else []
+             newele = classes.Multipole(knl=hkick, ksl=vkick,
                             length=ee.lrad, hxl=0, hyl=0)
     
         elif mad_etype == 'vkicker':
-            newele = pbelms.Multipole(knl=[], ksl=[ee.kick],
+            newele = classes.Multipole(knl=[], ksl=[ee.kick],
                             length=ee.lrad, hxl=0, hyl=0)
     
         elif mad_etype == 'hkicker':
-            newele = pbelms.Multipole(knl=[-ee.kick], ksl=[],
+            newele = classes.Multipole(knl=[-ee.kick], ksl=[],
                            length=ee.lrad, hxl=0, hyl=0)
     
         elif mad_etype == 'rfcavity':
-            newele = pbelms.Cavity(voltage=ee.volt * 1e6,
+            newele = classes.Cavity(voltage=ee.volt * 1e6,
                         frequency=ee.freq * 1e6, lag=ee.lag * 360)
     
         elif mad_etype == 'beambeam':
             if eename.startswith('bb_par'):
                 ## BB interaction is 4D
-                newele = pbelms.BeamBeam4D(
+                newele = classes.BeamBeam4D(
                     charge  = 0.,
                     sigma_x = 1.,
                     sigma_y = 1., 
@@ -92,7 +92,7 @@ def from_madx_sequence(sequence):
     
             elif eename.startswith('bb_ho'):
                 ## BB interaction is 6D
-                newele = pbelms.BeamBeam6D(
+                newele = classes.BeamBeam6D(
                     phi     = 0., 
                     alpha   = 0.,   
                     x_bb_co = 0.,   
