@@ -1,9 +1,33 @@
+from math import factorial
+
+import numpy as np
+
+
+clight = 299792458
+pi = np.pi
+
+
+def bn_mad(bn_mad, n, sign):
+    return sign*bn_mad*factorial(n-1)
+
+
+def bn_rel(bn16, bn3, r0, d0, sign):
+    out = []
+    for nn, (a, b) in enumerate(zip(bn16, bn3)):
+        n = nn+1
+        sixval = d0*a*b*r0**(1-n)*10**(3*n-6)
+        out.append(bn_mad(sixval, n, sign))
+    return out
+
+
+
+
 from . import elements as pyblep_elements
 
 def from_sixtrack_input(sixinput, classes=pyblep_elements):
     other_info = {}
 
-    line_data, rest, iconv = __expand_struct(sixinput,convert=classes)
+    line_data, rest, iconv = __expand_struct(sixinput,convert=pyblep_elements)
 
     ele_names = [dd[0] for dd in line_data]
     ele_types = [dd[1] for dd in line_data]
@@ -18,21 +42,22 @@ def from_sixtrack_input(sixinput, classes=pyblep_elements):
     return line, other_info
 
 
-def __expand_struct(self, convert=classes):
+
+def __expand_struct(self, convert=pyblep_elements):
     elems = []
     count = {}
     icount = 0
     iconv = []
     names = []
     rest = []
-    Drift = convert['Drift']
-    Multipole = convert['Multipole']
-    Cavity = convert['Cavity']
-    XYShift = convert['XYShift']
-    SRotation = convert['SRotation']
-    Line = convert['Line']
-    BeamBeam4D = convert['BeamBeam4D']
-    BeamBeam6D = convert['BeamBeam6D']
+    Drift = convert.Drift
+    Multipole = convert.Multipole
+    Cavity = convert.Cavity
+    XYShift = convert.XYShift
+    SRotation = convert.SRotation
+    Line = convert.Line
+    BeamBeam4D = convert.BeamBeam4D
+    BeamBeam6D = convert.BeamBeam6D
     exclude = False
     # add special elenents
     if 'CAV' in self.iter_struct():

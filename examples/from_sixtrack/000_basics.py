@@ -1,7 +1,11 @@
 import pyblep
 
+# Read sixtrack input using sixtracktools
+import sixtracktools
+sixinput=sixtracktools.SixInput('sixtrack_input')
+
 # Build pyblep line from sixtrack input
-line, other_data = pyblep.from_sixtrack_input('sixtrack_input')
+line, other_data = pyblep.from_sixtrack_input(sixinput)
 
 # Build a pysixtrack line from pyblep line
 import pysixtrack
