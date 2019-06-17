@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-setup(
+setuptools.setup(
         name='pyblep',
         version='0.0.0',
         description='Python Beam Line Exchange Protocol',
@@ -10,5 +10,3 @@ setup(
         packages=find_packages(),
         install_requires=['numpy'],
 )
-
-
