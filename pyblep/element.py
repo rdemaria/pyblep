@@ -7,6 +7,7 @@ Conventions:
 
 from collections import namedtuple
 
+
 class _MetaElement(type):
     def __new__(cls, clsname, bases, dct):
         # print('-----------------------------------')
@@ -14,18 +15,19 @@ class _MetaElement(type):
         # print(clsname)
         # print(bases)
         # print(dct)
-        description =dct.get('_description',{})
-        nt= namedtuple(clsname,[dd[0] for dd in description])
+        description = dct.get('_description', {})
+        nt = namedtuple(clsname, [dd[0] for dd in description])
         try:
-            doc = [dct['__doc__'],'\nFields:\n']
+            doc = [dct['__doc__'], '\nFields:\n']
         except KeyError:
             doc = ['\nFields:\n']
-        fields=[ f"{field:10} [{unit+']:':5} {desc} " for field, unit, desc in description ]
+        fields = [f"{field:10} [{unit+']:':5} {desc} " for field,
+                  unit, desc in description]
         doc += fields
-        dct['__doc__']="\n".join(doc)
+        dct['__doc__'] = "\n".join(doc)
         # print("named",nt,nt._fields)
         return super(_MetaElement, cls).__new__(cls, clsname, (nt,), dct)
 
+
 class Element(metaclass=_MetaElement):
     pass
-
