@@ -1,5 +1,5 @@
 import sixtracktools
-from .elements import Line
+from . import elements as pbelms
 
 def from_sixtrack_input(input_folder = './'):
 
@@ -12,7 +12,7 @@ def from_sixtrack_input(input_folder = './'):
     ele_types = [dd[1] for dd in line_data]
     elements = [dd[2] for dd in line_data]
 
-    line = Line(elements=elements)
+    line = pbelms.Line(elements=elements)
 
     other_info['sixinput'] = six
     other_info['rest'] = rest
