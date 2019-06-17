@@ -1,12 +1,13 @@
 from . import elements as pyblep_elements
 
+
 def from_madx_sequence(sequence, classes=pyblep_elements,
-                       ignored_madtypes=[],exact_drift=False):
+                       ignored_madtypes=[], exact_drift=False):
 
     if exact_drift:
-        myDrift=classes.ExactDrift
+        myDrift = classes.ExactDrift
     else:
-        myDrift=classes.Drift
+        myDrift = classes.Drift
     seq = sequence
 
     elements = seq.elements
@@ -30,7 +31,7 @@ def from_madx_sequence(sequence, classes=pyblep_elements,
 
         if mad_etype in ['marker', 'monitor', 'hmonitor', 'vmonitor',
                          'rcollimator', 'placeholder', 'instrument', 'solenoid', 'drift']:
-           newele = myDrift(length=ee.l)
+            newele = myDrift(length=ee.l)
 
         elif mad_etype == 'multipole':
             knl = ee.knl if hasattr(ee, 'knl') else [0]

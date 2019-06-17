@@ -21,5 +21,3 @@ def from_sixtrack_input(input_folder='./'):
     other_info['element_names'] = ele_names
 
     return line, other_info
-
-
