@@ -25,7 +25,7 @@ for ee, pp in zip(elements, ele_pos):
     mad_etype = ee.base_type.name
     
     if mad_etype in ['marker', 'monitor', 'hmonitor', 'vmonitor',
-            'rcollimator', 'placeholder', 'tkicker', 'instrument']:
+            'rcollimator', 'placeholder', 'instrument']:
         newele = pbelms.Drift(length=0.)
 
     elif mad_etype == 'multipole':
@@ -37,6 +37,12 @@ for ee, pp in zip(elements, ele_pos):
              hxl=knl[0],
              hyl=0,
              length=ee.lrad)
+
+    elif mad_etype == 'tkicker':
+         hkick = -ee.hkick if hasattr(ee, 'hkick') else []
+         vkick = ee.vkick if hasattr(ee, 'vkick') else []
+         newele = pbelms.Multipole(knl=hkick, ksl=vkick,
+                        length=ee.lrad, hxl=0, hyl=0)
 
     elif mad_etype == 'vkicker':
         newele = pbelms.Multipole(knl=[], ksl=[ee.kick],
