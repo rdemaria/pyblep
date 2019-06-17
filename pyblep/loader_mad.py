@@ -24,7 +24,7 @@ def from_madx_sequence(sequence, classes=pyblep_elements,
             i_drift += 1
 
         if ee.length > 0:
-            raise ValueError(f"Seq {seq} contails {el} with length>0")
+            raise ValueError(f"Sequence {seq} contains {eename} with length>0")
 
         mad_etype = ee.base_type.name
         eename = ee.name
