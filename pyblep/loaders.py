@@ -3,7 +3,7 @@ from .elements import Line
 
 def from_sixtrack_input(input_folder = './'):
 
-    sixtrack_specific = {}
+    other_info = {}
 
     six = sixtracktools.SixInput(input_folder)
     line_data, rest, iconv = six.expand_struct()
@@ -14,8 +14,10 @@ def from_sixtrack_input(input_folder = './'):
 
     line = Line(elements=elements)
 
-    sixtrack_specific['sixinput'] = six
-    sixtrack_specific['rest'] = rest
-    sixtrack_specific['iconv'] = six
+    other_info['sixinput'] = six
+    other_info['rest'] = rest
+    other_info['iconv'] = six
+    other_info['element_names'] = ele_names
+    other_info['element_types'] = ele_types
 
-    return line, sixtrack_specific
+    return line, other_info
