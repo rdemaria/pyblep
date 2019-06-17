@@ -1,3 +1,4 @@
+import numpy as np
 
 def get_elems_of_type(line, element_type):
 
