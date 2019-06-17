@@ -1,4 +1,4 @@
-import setuptools
+from setuptools import setup, find_packages
 
 setuptools.setup(
         name='pyblep',
@@ -7,7 +7,6 @@ setuptools.setup(
         author='Riccardo De Maria',
         author_email='riccardo.de.maria@cern.ch',
         url='https://github.com/rdemaria/pyblep',
-        packages=['pyblep'],
-        package_dir={'pyblep': 'pyblep'},
-        install_requires=['numpy']
+        packages=find_packages(),
+        install_requires=['numpy'],
 )
