@@ -7,7 +7,7 @@ Conventions:
 
 from collections import namedtuple
 from dataclasses import dataclass
-
+import dataclasses
 
 class _MetaElement(type):
     def __new__(cls, clsname, bases, dct):
@@ -50,6 +50,7 @@ class _MetaElement2(type):
                   unit, desc in description]
         doc += fields
         dct['__doc__'] = "\n".join(doc)
+        dct['_asdict']=dataclasses.asdict
         # print("named",nt,nt._fields)
         return super(_MetaElement2, cls).__new__(cls, clsname, (base,), dct)
 
