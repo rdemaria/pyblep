@@ -13,14 +13,13 @@ def from_madx_sequence(sequence, classes=pyblep_elements,
     elements = seq.elements
     ele_pos = seq.element_positions()
 
-    line = classes.Line(elements=[])
-    element_names = []
+    line = classes.Line(elements=[], element_names=[])
     old_pp = 0.
     i_drift = 0
     for ee, pp in zip(elements, ele_pos):
         if pp > old_pp:
             line.elements.append(myDrift(length=(pp-old_pp)))
-            element_names.append('drift_%d' % i_drift)
+            line.element_names.append('drift_%d' % i_drift)
             i_drift += 1
 
         if ee.length > 0:
@@ -113,9 +112,8 @@ def from_madx_sequence(sequence, classes=pyblep_elements,
             raise ValueError('Not recognized')
 
         line.elements.append(newele)
-        element_names.append(eename)
+        line.element_names.append(eename)
 
     other_info = {}
-    other_info['element_names'] = element_names
 
     return line, other_info
