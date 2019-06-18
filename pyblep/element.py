@@ -6,7 +6,8 @@ Conventions:
 """
 
 from collections import namedtuple
-
+from dataclasses import dataclass
+import dataclasses
 
 class _MetaElement(type):
     def __new__(cls, clsname, bases, dct):
@@ -15,8 +16,11 @@ class _MetaElement(type):
         # print(clsname)
         # print(bases)
         # print(dct)
-        description = dct.get('_description', {})
-        nt = namedtuple(clsname, [dd[0] for dd in description])
+        description = dct.get('_description', [])
+        ann={}
+        dct['__annotations__']=ann
+        for name,unit,desc in description:
+            ann[name]=object
         try:
             doc = [dct['__doc__'], '\nFields:\n']
         except KeyError:
@@ -25,9 +29,14 @@ class _MetaElement(type):
                   unit, desc in description]
         doc += fields
         dct['__doc__'] = "\n".join(doc)
+        dct['_asdict']=dataclasses.asdict
+        dct['_fields']=[dd[0] for dd in description]
         # print("named",nt,nt._fields)
-        return super(_MetaElement, cls).__new__(cls, clsname, (nt,), dct)
-
+        newclass=super(_MetaElement, cls).__new__(cls, clsname, bases, dct)
+        return dataclass(newclass)
 
 class Element(metaclass=_MetaElement):
-    pass
+    @classmethod
+    def from_dict(cls,dct):
+        return cls(**{kk:dct[kk] for kk in cls._fields})
+

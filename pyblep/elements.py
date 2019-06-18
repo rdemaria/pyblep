@@ -53,6 +53,7 @@ class SRotation(Element):
 class Line(Element):
     _description = [
         ('elements', '', 'Line elements'),
+        ('element_names', '', 'Element names'),
     ]
 
 

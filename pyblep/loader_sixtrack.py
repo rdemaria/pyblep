@@ -30,14 +30,12 @@ def from_sixtrack_input(sixinput, classes=pyblep_elements):
     line_data, rest, iconv = __expand_struct(sixinput,convert=pyblep_elements)
 
     ele_names = [dd[0] for dd in line_data]
-    ele_types = [dd[1] for dd in line_data]
     elements = [dd[2] for dd in line_data]
 
-    line = pyblep_elements.Line(elements=elements)
+    line = pyblep_elements.Line(elements=elements, element_names=ele_names)
 
     other_info['rest'] = rest
     other_info['iconv'] = iconv
-    other_info['element_names'] = ele_names
 
     return line, other_info
 
